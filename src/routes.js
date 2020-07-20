@@ -21,7 +21,11 @@ const routes = () => (
           headerShown: false,
         }}
       />
-      <Stack.Screen name="Podcast" component={Podcast} />
+      <Stack.Screen
+        options={{headerShown: false}}
+        name="Podcast"
+        component={Podcast}
+      />
     </Stack.Navigator>
   </NavigationContainer>
 );

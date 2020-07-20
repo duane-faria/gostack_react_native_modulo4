@@ -21,8 +21,14 @@ class Main extends Component {
     loadRequest();
   }
 
+  handlePodcastPress = (podcast) => {
+    const {navigation} = this.props;
+
+    navigation.navigate('Podcast', {podcast});
+  };
+
   render() {
-    const {podcasts, navigation} = this.props;
+    const {podcasts} = this.props;
     return (
       <Container>
         <PodcastList
@@ -30,7 +36,7 @@ class Main extends Component {
           data={podcasts.data}
           keyExtractor={(podcast) => podcast.id.toString()}
           renderItem={({item: podcast}) => (
-            <Podcast onPress={() => navigation.navigate('Podcast')}>
+            <Podcast onPress={() => this.handlePodcastPress(podcast)}>
               <Cover source={{uri: podcast.cover}} />
               <Info>
                 <Title>{podcast.title}</Title>

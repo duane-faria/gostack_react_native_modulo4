@@ -8,6 +8,8 @@ target 'modulo4_real' do
 
   use_react_native!(:path => config["reactNativePath"])
 
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
   target 'modulo4_realTests' do
     inherit! :complete
     # Pods for testing
