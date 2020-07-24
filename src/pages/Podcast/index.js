@@ -24,16 +24,16 @@ class Podcast extends Component {
     navigation.goBack();
   };
 
-  handlePlay = () => {
+  handlePlay = (episodeId) => {
     const {setPodcastRequest, route} = this.props;
 
     const podcast = route.params.podcast;
 
-    setPodcastRequest(podcast);
+    setPodcastRequest(podcast, episodeId);
   };
 
   render() {
-    const {route} = this.props;
+    const {route, current} = this.props;
     const {podcast} = route.params;
     return (
       <Container>
@@ -41,7 +41,7 @@ class Podcast extends Component {
           ListHeaderComponent={() => (
             <PodcastDetails>
               <Background source={{uri: podcast.cover}} blurRadius={5} />
-              <BackButton onPress={() => this.handleBack}>
+              <BackButton onPress={() => this.handleBack()}>
                 <Icon name="arrow-circle-o-left" size={24} color="#fff" />
               </BackButton>
               <Cover source={{uri: podcast.cover}} />
@@ -57,8 +57,13 @@ class Podcast extends Component {
           keyExtractor={(podcast) => String(podcast.id)}
           data={podcast.tracks}
           renderItem={({item: episode}) => (
-            <Episode>
-              <Title>{episode.title}</Title>
+            <Episode
+              onPress={() => {
+                this.handlePlay(episode.id);
+              }}>
+              <Title active={current && current == episode.id}>
+                {episode.title}
+              </Title>
               <Author>{episode.artist}</Author>
             </Episode>
           )}
@@ -73,6 +78,7 @@ const mapDispatchToProps = (dispatch) =>
 
 const mapStateToProps = (state) => ({
   player: state.podcast,
+  current: state.player.current,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Podcast);

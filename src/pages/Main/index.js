@@ -28,12 +28,12 @@ class Main extends Component {
   };
 
   render() {
-    const {podcasts} = this.props;
+    let {podcasts} = this.props;
     return (
       <Container>
         <PodcastList
           ListHeaderComponent={() => <PageTitle>Podcasts</PageTitle>}
-          data={podcasts.data}
+          data={podcasts.data.podcasts}
           keyExtractor={(podcast) => podcast.id.toString()}
           renderItem={({item: podcast}) => (
             <Podcast onPress={() => this.handlePodcastPress(podcast)}>
